@@ -21,31 +21,29 @@
                 age: 30
             }
 
-            handleClick = (e) => {
-               //console.log(e.target);
-               this.setState({
-                   name: 'Marko',
-                   age: 25
-               })
-               console.log(this.state);
+            handleChange = (e) => {
+                this.setState({
+                    name: e.target.value
+                });
             }
 
-            handleMouseOver(e) {
-               console.log(e.target, e.pageX);
-            }
-
-            handleCopy(e) {
-                console.log("Be original!");
+            handleSubmit = e => {
+                e.preventDefault();
+                console.log('Form submitted ' + this.state.name);
+                
             }
 
             render() {
                 return (
                     <div className="app-content">
-                        <h1>Hey, ninjas!</h1>
-                        <p>My name is: { this.state.name } and I am { this.state.age }.</p>
-                        <button onClick={ this.handleClick }>Click Me</button>
-                        <button onMouseOver={ this.handleMouseOver }>Hover Me</button>
-                        <p onCopy={ this.handleCopy }>What we think, we become.</p>
+                        <h1>My name is { this.state.name }</h1>
+                        {/*We could have done this by adding "onClick" function, but! 
+                        that way, if user clicks enter than it will do a submit and it will not be handled.
+                        This way, we capture both cases - if user clicks enter and if she clicks the button.*/}
+                        <form onSubmit={this.handleSubmit}>
+                            <input type="text" onChange={this.handleChange}/>
+                            <button>Submit</button>
+                        </form>
                     </div>
                 )
             }
